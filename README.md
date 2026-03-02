@@ -3,7 +3,7 @@ The purpose for this project is to practice different topics related to AWS, EKS
 - Kubernetes:
   - Deployment:
     - Created a Deployment for a webpage service:
-      - InitContainer to make the initial configuration (changing the default webpage location to /webpage and changing the default configuration files for nginx to make use of PHP FastCGI Process Manager)
+      - InitContainer to make the initial configuration (changing the default webpage location to /webpage and changing the default configuration files for nginx to make use of PHP FastCGI Process Manager).
       - Container in which I installed the necessary packages for the webpage to properly make use of PHP files. 
   - StatefulSet:
     - Created a StatefulSet for a mariadb service:
@@ -19,13 +19,11 @@ The purpose for this project is to practice different topics related to AWS, EKS
   - Secret:
     - Created an opaque Secret to store the database password.
   - Job:
-    - Created a Job to create the initial database setup (the idea for now is to make changes to the database through Jobs)
+    - Created a Job to create the initial database setup (the idea for now is to make changes to the database through Jobs).
   - Volumes:
-    - EmptyDir
     - PVC 
-    - PV 
-    - StorageClass:
-      - Queried the name of the default StorageClass and specified it in the volumeClaimTemplate from an StatefulSet.
+    - PV  
+    - StorageClass
 
 ---
 
@@ -39,8 +37,7 @@ The purpose for this project is to practice different topics related to AWS, EKS
     - Creation and initial configuration:
       - Attached specific VPC.
       - Added a few addons (CoreDNS, eks-pod-identity-agent, kube-proxy, vpc-cni, aws-ebs-csi-driver).
-  - Self-managed node-group:
-    - Creation and initial configuration.
+  - Self-managed node-group
 
 ---
 
