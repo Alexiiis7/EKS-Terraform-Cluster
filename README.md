@@ -27,8 +27,12 @@ The purpose for this project is to practice different topics related to AWS, EKS
     - StorageClass:
       - Queried the name of the default StorageClass and specified it in the volumeClaimTemplate from an StatefulSet.
 
+---
+
 - MariaDB:
   - Created a master-replica setup.
+
+---
 
 - EKS:
   - Self-managed EKS Cluster:
@@ -38,12 +42,16 @@ The purpose for this project is to practice different topics related to AWS, EKS
   - Self-managed node-group:
     - Creation and initial configuration.
 
+---
+
 - AWS:
   - IAM:
       - Role creation.
       - Assign Role to Service Account ebs-csi-controller-sa.
   - VPC:
       - VPC creation.
+
+---
    
 - Terraform:
   - Variables
