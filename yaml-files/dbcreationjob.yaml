@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dbtablecreation
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+               name: dbsecrets
+               key: rootpassword
+        command:
+         - "/bin/sh"
+         - "-c"
+         - >
+           sleep 30;
+           mariadb -h mariadb-ss-0.mariadb-service.default.svc.cluster.local -u root -p${MARIADB_ROOT_PASSWORD} < /mnt/config-map/dbsetup.sql;
+        volumeMounts:
+        - name: configmapvolume
+          mountPath: /mnt/config-map
+      volumes:
+        - name: configmapvolume
+          configMap:
+            name: mariadb-configmap
+      restartPolicy: Never

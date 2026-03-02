@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-configmap
+  namespace: default
+data:
+
+  primary.cnf: |
+    [mariadb]
+    log-bin                         # enable binary logging
+    log-basename=my-mariadb         # used to be independent of hostname changes (otherwise is in datadir/mysql)
+
+  replica.cnf: |
+    [mariadb]
+    log-basename=my-mariadb         # used to be independent of hostname changes (otherwise is in datadir/mysql)
+
+  primary.sql: |
+    CREATE USER IF NOT EXISTS 'replicauser'@'%' IDENTIFIED BY 'replicasecret';
+    GRANT REPLICATION REPLICA ON *.* TO 'replicauser'@'%';
+    CREATE DATABASE IF NOT EXISTS users;
+    CREATE USER IF NOT EXISTS 'DBviewer'@'%' IDENTIFIED BY 'secretpassword';
+    GRANT SELECT ON users.* TO 'DBviewer'@'%';
+
+  dbsetup.sql: |
+    USE users;
+    CREATE TABLE IF NOT EXISTS userlist(username VARCHAR(50));
+    ALTER TABLE userlist ADD COLUMN lastname VARCHAR(50), ADD COLUMN pnumber VARCHAR(20);
+    INSERT INTO userlist (username, lastname, pnumber) VALUES ('User1', 'Lastname1', 610123456);
+    INSERT INTO userlist (username, lastname, pnumber) VALUES ('User2', 'Lastname2', 676767676);
+
+  secondary.sql: |
+    CHANGE MASTER TO
+    MASTER_HOST='mariadb-ss-0.mariadb-service.default.svc.cluster.local',
+    MASTER_USER='replicauser',
+    MASTER_PASSWORD='replicasecret',
+    MASTER_CONNECT_RETRY=10;
