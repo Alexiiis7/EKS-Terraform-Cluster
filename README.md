@@ -1,4 +1,4 @@
-The purpose for this project is to practice different topics related to AWS, EKS, Terraform and Kubernetes in a semi-coherent infrastructure. There are the topics I've touched on this far:
+The purpose of this project is to practice different topics related to AWS, EKS, Terraform and Kubernetes in a basic infrastructure. Here are the topics I've touched on this far:
 
 - Kubernetes:
   - Deployment:
